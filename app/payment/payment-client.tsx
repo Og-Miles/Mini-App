@@ -3,12 +3,16 @@
 import { FlutterWaveButton } from "flutterwave-react-v3";
 import { useSearchParams } from "next/navigation";
 
-export default function PaymentClient() {
+interface PaymentClientProps {
+  publicKey: string;
+}
+
+export default function PaymentClient({ publicKey }: PaymentClientProps) {
   const params = useSearchParams();
   const chatId = params.get("chat_id");
 
   const paymentData = {
-    public_key: process.env.NEXT_PUBLIC_FLW_PUBLIC_KEY!,
+    public_key: publicKey, // use the prop here
     tx_ref: `tg_${chatId}_${Date.now()}`,
     amount: 10,
     currency: "USD",
@@ -21,7 +25,7 @@ export default function PaymentClient() {
     customizations: {
       title: "Subscription",
       description: "User subscription payment",
-      logo: "https://yourdomain.com/logo.png",
+      logo: "https://deriv-alert-sub.vercel.app/logo.png",
     },
     callback: (response: unknown) => {
       console.log("Payment response", response);

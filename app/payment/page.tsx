@@ -4,7 +4,7 @@ import PaymentClient from "./payment-client";
 export default function PaymentPage() {
   return (
     <Suspense fallback={<div>Loading payment…</div>}>
-      <PaymentClient />
+      <PaymentClient publicKey={process.env.FLW_PUBLIC!} />
     </Suspense>
   );
 }
